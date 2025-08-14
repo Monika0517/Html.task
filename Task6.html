@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Management</title>
+</head>
+<body>
+    <h1>Contact Management Module</h1>
+    <div id="output"></div>
+
+    <script>
+        
+        let contacts = [
+            {
+                name: "Alice",
+                phone: "1234567890",
+                email: "alice@example.com",
+                displayInfo() {
+                    return `${this.name} - ${this.phone} - ${this.email}`;
+                }
+            },
+            {
+                name: "Bob",
+                phone: "9876543210",
+                email: "bob@example.com",
+                displayInfo() {
+                    return `${this.name} - ${this.phone} - ${this.email}`;
+                }
+            }
+        ];
+
+        
+        function showFirstContactInfo() {
+            let [first] = contacts;
+            let { name, phone, email } = first;
+            console.log(`First Contact: ${name}, ${phone}, ${email}`);
+        }
+        showFirstContactInfo();
+
+        
+        console.log(contacts[0].name); 
+        console.log(contacts[0]["email"]);
+
+        
+        contacts.forEach(c => console.log(c.displayInfo()));
+
+        
+        function addContacts(...newContacts) {
+            contacts.push(...newContacts);
+        }
+        addContacts(
+            { name: "Charlie", phone: "5555555555", email: "charlie@example.com", displayInfo() { return `${this.name} - ${this.phone} - ${this.email}`; } }
+        );
+
+        
+        let moreContacts = [
+            { name: "David", phone: "6666666666", email: "david@example.com", displayInfo() { return `${this.name} - ${this.phone} - ${this.email}`; } }
+        ];
+        contacts = [...contacts, ...moreContacts];
+
+        
+        let person = {
+            name: "Eve",
+            phone: "7777777777",
+            email: "eve@example.com"
+        };
+
+        function displayCustom(prefix) {
+            console.log(`${prefix}: ${this.name} - ${this.phone} - ${this.email}`);
+        }
+
+        displayCustom.call(person, "Using call()");
+        displayCustom.apply(person, ["Using apply()"]);
+
+        let boundFunc = displayCustom.bind(person, "Using bind()");
+        boundFunc();
+
+        
+        document.getElementById("output").innerHTML = contacts.map(c => c.displayInfo()).join("<br>");
+    </script>
+</body>
+</html>
