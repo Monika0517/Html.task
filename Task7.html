@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library Management System</title>
+</head>
+<body>
+  <h2>Library Management System</h2>
+  <div id="output"></div>
+
+  <script>
+    
+    class Book {
+      constructor(title, author, publishedYear) {
+        this.title = title;
+        this.author = author;
+        this.publishedYear = new Date(publishedYear); // store as Date object
+      }
+
+      getSummary() {
+        return `${this.title} by ${this.author}, published in ${this.publishedYear.getFullYear()}`;
+      }
+    }
+
+    
+    class EBook extends Book {
+      constructor(title, author, publishedYear, fileSize) {
+        super(title, author, publishedYear); // call parent constructor
+        this.fileSize = fileSize;
+      }
+
+    
+      getSummary() {
+        return `${super.getSummary()} [File size: ${this.fileSize} MB]`;
+      }
+    }
+
+  
+    const book1 = new Book("To Kill a Mockingbird", "Harper Lee", "1960");
+    const book2 = new Book("1984", "George Orwell", "1949");
+    const ebook1 = new EBook("JavaScript Guide", "MDN", "2015", 5);
+    const ebook2 = new EBook("Clean Code", "Robert C. Martin", "2008", 3);
+
+    
+    const output = document.getElementById("output");
+    output.innerHTML = `
+      <p>${book1.getSummary()}</p>
+      <p>${book2.getSummary()}</p>
+      <p>${ebook1.getSummary()}</p>
+      <p>${ebook2.getSummary()}</p>
+    `;
+  </script>
+</body>
+</html>
